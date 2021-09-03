@@ -7,6 +7,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import android.app.DatePickerDialog
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         button1.setOnClickListener(this)
         button2.setOnClickListener(this)
         button3.setOnClickListener(this)
+        button4.setOnClickListener(this)
     }
 
     //override fun onClick(v: View) {
@@ -30,12 +32,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     //}
 
     override fun onClick(v: View) {
-        if (v.id == R.id.button1) {
-            textView.text = editText.text.toString()
-        } else if (v.id == R.id.button2) {
-            showAlertDialog()
-        } else if (v.id == R.id.button3) {
-            showTimePickerDialog()
+        when (v.id) {
+            R.id.button1 -> textView.text = editText.text.toString()
+            R.id.button2 -> showAlertDialog()
+            R.id.button3 -> showTimePickerDialog()
+            R.id.button4 -> showDatePickerDialog()
         }
     }
 
@@ -74,6 +75,18 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 },
                 13, 0, true)
         timePickerDialog.show()
+    }
+
+    private fun showDatePickerDialog() {
+        val datePickerDialog = DatePickerDialog(
+                this,
+                DatePickerDialog.OnDateSetListener() {view, year, month, dayOfMonth->
+                    Log.d("UI_PARTS", "$year/${month+1}/$dayOfMonth")
+                },
+                2018,
+                4,
+                1)
+        datePickerDialog.show()
     }
 
 }
